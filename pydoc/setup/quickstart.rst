@@ -12,23 +12,27 @@ In a terminal, run the arkouda server program with one locale
 
 You should see a startup message like
 
-.. code-block:: bash
+.. code-block:: none
 
-    $ ./arkouda_server -nl 1
-    server listening on tcp://<your_machine>.local:5555
-    arkouda server version = vYYYY.MM.DD
-    memory limit = 15461882265
-    bytes of memory used = 0
+   $ ./arkouda_server -nl 1
+   arkouda server version = 2020.07.07
+   memory tracking = true
+   initialized the .arkouda directory /Your/PATH/arkouda/.arkouda
+   getMemLimit() = 123695058124
+   bytes of memoryUsed() = 2462
+   server listening on tcp://node01:5555
 
 or with authentication turned on 
 
-.. code-block:: bash
+.. code-block:: none
 
    $ ./arkouda_server -nl 1 --authenticate
-   server listening on tcp://<your_machine>:5555?token=<token_string>
-    arkouda server version = vYYYY.MM.DD
-    memory limit = 15461882265
-    bytes of memory used = 0
+   arkouda server version = 2020.07.07
+   memory tracking = true
+   initialized the .arkouda directory /Your/PATH/arkouda/.arkouda
+   getMemLimit() = 123695058124
+   bytes of memoryUsed() = 2462
+   server listening on tcp://node01:5555?token=vikq8Co2fqv20usbrRnRtFsLr9nNbad
 
 
 The last line is the most important, because it contains the connection url with the hostname and port required for the client to connect to the server.
