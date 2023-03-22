@@ -1473,7 +1473,9 @@ module HDF5Msg {
         // compute amount to adjust 
         var adjustments = (+ scan diffs) - diffs;
         coforall loc in a.targetLocales() do on loc {
-            forall(sd, adj) in zip(segSubdoms, adjustments) {
+            const localAdjustments = adjustments;
+            const localSegSubdoms = segSubdoms;
+            forall(sd, adj) in zip(localSegSubdoms, localAdjustments) {
                 for locdom in a.localSubdomains() {
                     const intersection = domain_intersection(locdom, sd);
                     if intersection.size > 0 {
@@ -1737,7 +1739,11 @@ module HDF5Msg {
 
         var segDist = makeDistArray(nSeg, int);
         read_files_into_distributed_array(segDist, segSubdoms, filenames, dset + "/" + SEGMENTED_OFFSET_NAME, skips);
+        use CommDiagnostics;
+        startCommDiagnostics();
         fixupSegBoundaries(segDist, segSubdoms, valSubdoms);
+        stopCommDiagnostics();
+        printCommDiagnosticsTable();
         h5Logger.debug(getModuleName(),getRoutineName(),getLineNumber(), "Segment Values: %jt".format(segDist));
 
         var rtnMap: map(string, string) = new map(string, string);
